@@ -111,6 +111,9 @@ importers:
       '@corridor/manifest':
         specifier: workspace:*
         version: link:../manifest
+      '@corridor/probe':
+        specifier: workspace:*
+        version: link:../probe
       '@corridor/registry':
         specifier: workspace:*
         version: link:../registry
