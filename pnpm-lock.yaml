@@ -163,6 +163,9 @@ importers:
 
   packages/manifest:
     dependencies:
+      '@corridor/probe':
+        specifier: workspace:*
+        version: link:../probe
       '@corridor/types':
         specifier: workspace:*
         version: link:../types
