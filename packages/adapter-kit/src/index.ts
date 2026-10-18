@@ -59,6 +59,10 @@ export type DepositInstructions =
   | {
       readonly kind: "adapter_settled";
       readonly reference?: string;
+    }
+  | {
+      readonly kind: "adapter_reported";
+      readonly reference?: string;
     };
 
 /**
@@ -218,16 +222,13 @@ export interface RefundRef {
 }
 
 /**
- * SHIM for #187 (minimal, to be reconciled with that issue's PR).
- * What an adapter supports, discoverable up front instead of by failing.
- * `settlement` is `readonly string[]` here because `DepositInstructions` (the
- * type #187 names) does not exist in this tree yet.
+ * What an adapter supports, discoverable up front instead of by failing (#187).
  */
 export interface AdapterCapabilities {
   readonly protocol: string;
   readonly quotes: readonly ("sep38_firm" | "sep38_indicative" | "native" | "none")[];
   readonly kyc: "sep12" | "sep6_fields" | "bespoke" | "none";
-  readonly settlement: readonly string[];
+  readonly settlement: readonly DepositInstructions["kind"][];
   readonly refunds: "request" | "report_only" | "none";
   readonly callbacks: boolean;
 }

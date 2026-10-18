@@ -274,4 +274,34 @@ describe("createMockAdapter", () => {
     expect(legacy.depositAddress).toBeUndefined();
     expect(legacy.memo).toBeUndefined();
   });
+
+  it("capabilities: reports default mock capabilities and supports overrides via MockAdapterOptions", () => {
+    const defaultAdapter = createMockAdapter();
+    expect(defaultAdapter.capabilities()).toEqual({
+      protocol: "mock",
+      quotes: ["sep38_firm"],
+      kyc: "sep12",
+      settlement: ["stellar_payment"],
+      refunds: "request",
+      callbacks: false,
+    });
+
+    const customAdapter = createMockAdapter({
+      capabilities: {
+        quotes: ["none"],
+        kyc: "none",
+        settlement: ["claimable_balance"],
+        refunds: "none",
+        callbacks: true,
+      },
+    });
+    expect(customAdapter.capabilities()).toEqual({
+      protocol: "mock",
+      quotes: ["none"],
+      kyc: "none",
+      settlement: ["claimable_balance"],
+      refunds: "none",
+      callbacks: true,
+    });
+  });
 });
